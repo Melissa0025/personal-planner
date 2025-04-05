@@ -6,7 +6,7 @@ exports.getTasks = async (req, res) => {
     const result = await pool.query("SELECT * FROM tasks WHERE user_id = $1", [req.user.id]);
     const tasks = result.rows.map(task => ({
       ...task,
-      due_date: task.due_date ? task.due_date.toISOString().split("T")[0] : null
+      due_date: task.due_date ? task.due_date.toLocaleDateString('en-CA') : null
     }));
     res.json(tasks);
   } catch (err) {
@@ -19,7 +19,7 @@ exports.createTask = async (req, res) => {
   const { title, description, due_date, priority } = req.body;
   try {
     const formattedDate = new Date(due_date);
-    formattedDate.setDate(formattedDate.getDate() + 1); // ✅ Only here
+    formattedDate.setDate(formattedDate.getDate()); // ✅ Only here
     const isoDate = formattedDate.toISOString().split("T")[0];
 
     const result = await pool.query(

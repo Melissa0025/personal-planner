@@ -101,3 +101,4 @@ function showModal(isEdit = false) {
   const modal = new bootstrap.Modal(document.getElementById("taskModal"));
   modal.show();
 }
+

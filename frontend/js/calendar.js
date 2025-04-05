@@ -26,7 +26,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const task = info.event.extendedProps;
             document.getElementById('taskId').value = info.event.id;
             document.getElementById('title').value = info.event.title;
-            document.getElementById('due_date').value = info.event.startStr;
+            //document.getElementById('due_date').value = info.event.startStr;
+document.getElementById('due_date').value = info.event.startStr.split("T")[0];
+
             document.getElementById('priority').value = task.priority;
             document.getElementById('status').value = task.status;
             document.getElementById('description').value = task.description;
@@ -91,6 +93,9 @@ document.addEventListener('DOMContentLoaded', function () {
             status: document.getElementById('status').value,
             description: document.getElementById('description').value
         };
+
+console.log("Submitting task with due_date:", taskData.due_date);
+
 
         const method = id ? 'PUT' : 'POST';
         const url = id ? `http://localhost:5000/tasks/${id}` : 'http://localhost:5000/tasks';
